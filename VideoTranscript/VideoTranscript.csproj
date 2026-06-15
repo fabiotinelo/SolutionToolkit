@@ -11,8 +11,7 @@
 	<AssemblyName>videoTranscript</AssemblyName>
 	<ApplicationIcon>transcript.ico</ApplicationIcon>
 	<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
-	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
-	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>  
   </PropertyGroup>
 
   <ItemGroup>

@@ -61,7 +61,7 @@
             btnRec.ForeColor = Color.Red;
             btnRec.Location = new Point(0, 0);
             btnRec.Name = "btnRec";
-            btnRec.Size = new Size(277, 50);
+            btnRec.Size = new Size(277, 49);
             btnRec.TabIndex = 0;
             btnRec.Text = "REC";
             btnRec.UseVisualStyleBackColor = true;
@@ -74,7 +74,7 @@
             btnStop.Enabled = false;
             btnStop.Location = new Point(0, 0);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(284, 50);
+            btnStop.Size = new Size(284, 49);
             btnStop.TabIndex = 2;
             btnStop.Text = "Stop";
             btnStop.UseVisualStyleBackColor = true;
@@ -105,10 +105,10 @@
             groupBox1.AutoSize = true;
             groupBox1.Controls.Add(cbbMonitors);
             groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(3, 70);
+            groupBox1.Location = new Point(3, 71);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(10, 7, 10, 7);
-            groupBox1.Size = new Size(576, 61);
+            groupBox1.Size = new Size(576, 62);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Monitor";
@@ -118,10 +118,10 @@
             groupBox2.AutoSize = true;
             groupBox2.Controls.Add(cbbWindows);
             groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(3, 137);
+            groupBox2.Location = new Point(3, 139);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(10, 7, 10, 7);
-            groupBox2.Size = new Size(576, 61);
+            groupBox2.Size = new Size(576, 62);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Window";
@@ -130,16 +130,16 @@
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { tslStatus });
-            statusStrip1.Location = new Point(20, 281);
+            statusStrip1.Location = new Point(20, 283);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(699, 24);
+            statusStrip1.Size = new Size(699, 22);
             statusStrip1.TabIndex = 8;
             statusStrip1.Text = "statusStrip1";
             // 
             // tslStatus
             // 
             tslStatus.Name = "tslStatus";
-            tslStatus.Size = new Size(0, 18);
+            tslStatus.Size = new Size(0, 16);
             // 
             // groupBox3
             // 
@@ -149,7 +149,7 @@
             groupBox3.Location = new Point(3, 3);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new Padding(10, 7, 10, 7);
-            groupBox3.Size = new Size(576, 61);
+            groupBox3.Size = new Size(576, 62);
             groupBox3.TabIndex = 8;
             groupBox3.TabStop = false;
             groupBox3.Text = "Video File";
@@ -200,13 +200,13 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel1.Size = new Size(699, 271);
+            tableLayoutPanel1.Size = new Size(699, 273);
             tableLayoutPanel1.TabIndex = 10;
             // 
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(7, 211);
+            splitContainer1.Location = new Point(7, 214);
             splitContainer1.Margin = new Padding(7, 10, 10, 10);
             splitContainer1.Name = "splitContainer1";
             // 
@@ -217,7 +217,7 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(btnStop);
-            splitContainer1.Size = new Size(565, 50);
+            splitContainer1.Size = new Size(565, 49);
             splitContainer1.SplitterDistance = 277;
             splitContainer1.TabIndex = 9;
             // 

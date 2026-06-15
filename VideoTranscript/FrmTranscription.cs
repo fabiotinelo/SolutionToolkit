@@ -12,7 +12,8 @@ namespace Transcription
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			this.WindowState = FormWindowState.Maximized;
+            this.Text = $"{this.Text} - v{Application.ProductVersion}";
+            this.WindowState = FormWindowState.Maximized;
 			cbbModel.SelectedIndex = 12;
 			cmbLanguage.SelectedIndex = 0;
 			txtResult.Dock = DockStyle.Fill;

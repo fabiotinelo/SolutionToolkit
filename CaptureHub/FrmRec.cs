@@ -26,6 +26,7 @@ namespace Rec
 
         protected void FrmRec_Load(object sender, EventArgs e)
         {
+            this.Text = $"{this.Text} - v{Application.ProductVersion}";
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
             cbbWindows.DataSource = _windowsSource;
@@ -103,6 +104,8 @@ namespace Rec
 
                 btnStop.Enabled = true;
                 btnRec.Enabled = false;
+                cbbMonitors.Enabled = false;
+                cbbWindows.Enabled = false;
                 tslStatus.Text = "Gravando...";
             }
             catch (Exception ex)
@@ -120,6 +123,8 @@ namespace Rec
 
                 btnStop.Enabled = false;
                 btnRec.Enabled = true;
+                cbbMonitors.Enabled = true;
+                cbbWindows.Enabled = true;
                 tslStatus.Text = "Gravação Interrompida";
             }
             catch (Exception ex)
