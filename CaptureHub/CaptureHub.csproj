@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFramework>net8.0-windows</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <UseWindowsForms>true</UseWindowsForms>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <PlatformTarget>x64</PlatformTarget>
+	  <Platforms>x64</Platforms>
+	  <AssemblyName>captureHub</AssemblyName>
+	  <ApplicationIcon>rec.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ScreenRecorderLib" Version="6.6.0" />
+  </ItemGroup>
+
+</Project>
