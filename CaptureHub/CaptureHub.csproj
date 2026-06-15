@@ -10,6 +10,8 @@
 	  <Platforms>x64</Platforms>
 	  <AssemblyName>captureHub</AssemblyName>
 	  <ApplicationIcon>rec.ico</ApplicationIcon>
+	  <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+	  <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
   </PropertyGroup>
 
   <ItemGroup>

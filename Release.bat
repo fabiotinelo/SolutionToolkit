@@ -17,8 +17,9 @@ dotnet publish CaptureHub\CaptureHub.csproj ^
 -c Release ^
 -r win-x64 ^
 -p:Platform=x64 ^
--p:PublishSingleFile=true ^
+-p:PublishSingleFile=false ^
 -p:PublishTrimmed=false ^
+-p:DebugType=None ^
 --self-contained true ^
 -o Release
 
@@ -33,8 +34,9 @@ dotnet publish VideoTranscript\VideoTranscript.csproj ^
 -c Release ^
 -r win-x64 ^
 -p:Platform=x64 ^
--p:PublishSingleFile=true ^
+-p:PublishSingleFile=false ^
 -p:PublishTrimmed=false ^
+-p:DebugType=None ^
 --self-contained true ^
 -o Release
 
@@ -45,7 +47,6 @@ echo ==========================================
 echo BUILD CONCLUIDO
 echo ==========================================
 
-pause
 exit /b 0
 
 :erro
@@ -53,5 +54,4 @@ echo.
 echo ==========================================
 echo ERRO NO BUILD
 echo ==========================================
-pause
 exit /b 1
