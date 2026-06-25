@@ -1,6 +1,6 @@
-using Microsoft.VisualBasic;
-using System.Formats.Tar;
 using Transcription.Services;
+using System.IO;
+using VideoTranscript;
 
 namespace Transcription
 {
@@ -9,14 +9,16 @@ namespace Transcription
 
         private string wavFile;
         private List<string> chunks;
+        private TimeSpan tspTranscribe;
 
         public frmAudioTranscription()
         {
             InitializeComponent();
         }
-        
+
         private void frmAudioTranscription_FormClosing(object sender, FormClosingEventArgs e)
         {
+            SaveUserConfiguration();
             DeleteTempFiles();
         }
 
@@ -24,10 +26,12 @@ namespace Transcription
         {
             this.Text = $"{this.Text} - v{Application.ProductVersion}";
             this.WindowState = FormWindowState.Maximized;
-            cbbModel.SelectedIndex = 12;
-            cmbLanguage.SelectedIndex = 0;
+            //cbbModel.SelectedIndex = 12;
+            //cmbLanguage.SelectedIndex = 0;
             txtResult.Dock = DockStyle.Fill;
             pnlResult.Dock = DockStyle.Fill;
+
+            RestoreUserConfiguration();
         }
 
         // Método para deletar arquivos temporários, se necessário
@@ -48,6 +52,39 @@ namespace Transcription
                     catch (Exception) { continue; }
                 }
 
+            }
+        }
+
+
+        //Salvar configurações do usuário ao fechar o formulário
+        private void SaveUserConfiguration()
+        {
+            if (cbbModel.SelectedItem != null)
+                Settings.Default.Model = cbbModel.SelectedItem.ToString();
+
+            if (cmbLanguage.SelectedItem != null)
+                Settings.Default.Language = cmbLanguage.SelectedItem.ToString();
+
+            Settings.Default.Save();
+        }
+
+
+
+        private void RestoreUserConfiguration()
+        {
+            string model=Settings.Default.Model;
+            string language = Settings.Default.Language;
+
+            if (!string.IsNullOrEmpty(model))
+            {
+                if (cbbModel.Items.Contains(model))
+                    cbbModel.SelectedItem = model;
+            }
+
+            if (!string.IsNullOrEmpty(language))
+            {
+                if (cmbLanguage.Items.Contains(language))
+                    cmbLanguage.SelectedItem = language;
             }
         }
 
@@ -106,6 +143,11 @@ namespace Transcription
                 if (dialog.ShowDialog() != DialogResult.OK)
                     return;
 
+                tslTime.Text = "";
+                tspTranscribe = TimeSpan.Zero;
+                timTrancribe.Enabled = true;
+
+
                 tslFilePath.Text = dialog.FileName;
 
                 btnTranscribe.Enabled = false;
@@ -129,7 +171,6 @@ namespace Transcription
 
                 Application.DoEvents();
 
-
                 string modelPath =
                     await ModelDownloader
                         .EnsureModelExists(model);
@@ -141,7 +182,6 @@ namespace Transcription
 
 
                 wavFile = AudioConverter.ConvertTo16KhzMono(dialog.FileName);
-
 
                 //dividir arquivo
                 var audioSplitService = new AudioSplitService();
@@ -220,12 +260,16 @@ namespace Transcription
             }
             finally
             {
+                timTrancribe.Enabled = false;
                 btnTranscribe.Enabled = true;
                 Cursor = Cursors.Default;
             }
         }
 
-
-       
+        private void timTrancribe_Tick(object sender, EventArgs e)
+        {
+            tspTranscribe = tspTranscribe.Add(TimeSpan.FromSeconds(1));
+            tslTime.Text = tspTranscribe.ToString();
+        }
     }
 }

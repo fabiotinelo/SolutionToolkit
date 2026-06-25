@@ -16,6 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="3.0.3" />
+    <PackageReference Include="naudio.winforms" Version="2.3.0" />
     <PackageReference Include="ScreenRecorderLib" Version="6.6.0" />
   </ItemGroup>
 

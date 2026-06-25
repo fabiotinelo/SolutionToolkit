@@ -1,10 +1,14 @@
 using System.Diagnostics;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Rec
 {
     public partial class FrmRec : Form
     {
         private readonly RecorderService _recorderService;
+        private readonly MicrophoneController _microphoneController;
         private CancellationTokenSource? _cancelationTokenSource;
 
 
@@ -20,14 +24,21 @@ namespace Rec
         {
             InitializeComponent();
             _recorderService = new RecorderService();
+            _microphoneController = new MicrophoneController();
         }
 
         #region Form Events
 
         protected void FrmRec_Load(object sender, EventArgs e)
         {
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            ChangeButtonMicrophone();
+
             this.Text = $"{this.Text} - v{Application.ProductVersion}";
             this.AutoScaleMode = AutoScaleMode.Dpi;
+
+            btnRec.Dock = DockStyle.Fill;
+            btnStop.Dock = DockStyle.Fill;
 
             cbbWindows.DataSource = _windowsSource;
             cbbWindows.DisplayMember = nameof(WindowInfo.Title);
@@ -66,21 +77,97 @@ namespace Rec
             }
         }
 
+
+        private void ChangeButtonMicrophone()
+        {
+            if (_microphoneController.IsMuted())
+            {
+  //              btnMicrophone.Text = "Open Microphone";
+                btnMicrophone.ImageIndex = 1;
+            }
+            else
+            {
+//                btnMicrophone.Text = "Mute Microphone";
+                btnMicrophone.ImageIndex = 0;
+            }
+        }
+
+        private string GenerateFileName(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return "capturehub.mp4";
+
+            // 1. Remove acentos
+            string normalized = input.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+
+            foreach (var c in normalized)
+            {
+                var unicodeCategory = Char.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                    sb.Append(c);
+            }
+
+            string name = sb.ToString().Normalize(NormalizationForm.FormC);
+
+            // 2. Mantém apenas letras, números e espaço
+            name = Regex.Replace(name, @"[^a-zA-Z0-9\s]", "");
+
+            // 3. Substitui espaços por _
+            name = Regex.Replace(name, @"\s+", "_");
+
+            // 4. Remove múltiplos _
+            //name = Regex.Replace(name, @"_+", "_");
+
+            // 5. Remove _ do início/fim
+            name = name.Trim('_');
+
+            // 6. Evita vazio
+            if (string.IsNullOrWhiteSpace(name))
+                name = "capturehub";
+
+            // 7. Limite de tamanho (segurança)
+            if (name.Length > 200)
+                name = name.Substring(0, 200).Trim('_');
+
+            return $"{name}_{DateTime.Now:yyyyMMdd_HHmmss}.mp4";
+        }
+
+
+        private string MaxWindowName(string input)
+        {
+            int maxLength = 100;
+
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            return input.Length <= maxLength
+                ? input
+                : input.Substring(0, maxLength);
+        }
+
+
+
         private async void btnRec_Click(object sender, EventArgs e)
         {
+            string fileName;
+
             try
             {
                 WindowInfo? window = null;
+                _videoFilePath = null;
 
                 if (string.IsNullOrWhiteSpace(_videoFilePath))
                 {
-                    string fileName = $"Capture-Hub_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.mp4";
+
+                    fileName = GenerateFileName(string.Concat(cbbMonitors.SelectedItem.ToString(), " ", MaxWindowName(cbbWindows.SelectedItem.ToString())));
+                    //fileName = $"Capture-Hub_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.mp4";
                     _videoFilePath = Path.Combine(_videosFolder, fileName);
 
                     if (MessageBox.Show($"Você não informou um nome do arquivo do vídeo que será gerado. Deseja que o sistema crie um automaticamente neste endereço {_videoFilePath} ?", "Video File", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                         return;
                     else
-                        txtVideoFile.Text= _videoFilePath;
+                        txtVideoFile.Text = _videoFilePath;
                 }
 
                 if (File.Exists(_videoFilePath))
@@ -119,6 +206,10 @@ namespace Rec
         {
             try
             {
+
+                if (MessageBox.Show("Deseja realmente interromper a gravação?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+
                 await _recorderService.StopAsync();
 
                 btnStop.Enabled = false;
@@ -261,6 +352,12 @@ namespace Rec
 
             this.ResumeLayout();
 
+        }
+
+        private void btnMicrophone_Click(object sender, EventArgs e)
+        {
+            _microphoneController.ToggleMicrophone();
+            ChangeButtonMicrophone();
         }
     }
 }

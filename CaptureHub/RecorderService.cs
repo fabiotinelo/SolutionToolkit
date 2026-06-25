@@ -9,56 +9,6 @@ namespace Rec
 
 		public bool IsRecording => _recording;
 
-		//public async Task StartAsync(string outputFile)
-		//{
-
-		//	if (_recording)
-		//		return;
-
-		//	var options = RecorderOptions.DefaultMainMonitor;
-
-		//	// VIDEO
-		//	options.VideoEncoderOptions.Framerate = 30;
-		//	options.VideoEncoderOptions.Quality = 90;
-		//	options.VideoEncoderOptions.Bitrate = 8_000_000;
-
-		//	options.VideoEncoderOptions.IsFixedFramerate = true;
-		//	options.VideoEncoderOptions.IsHardwareEncodingEnabled = true;
-		//	options.VideoEncoderOptions.IsMp4FastStartEnabled = true;
-
-		//	// AUDIO
-		//	options.AudioOptions.IsAudioEnabled = true;
-
-		//	// áudio do sistema
-		//	options.AudioOptions.IsOutputDeviceEnabled = true;
-
-		//	// microfone
-		//	options.AudioOptions.IsInputDeviceEnabled = true;
-
-		//	options.AudioOptions.AudioOutputDevice = null;
-		//	options.AudioOptions.AudioInputDevice = null;
-
-		//	_recorder = Recorder.CreateRecorder(options);
-
-		//	_recorder.OnRecordingFailed += (_, e) =>
-		//	{
-		//		Console.WriteLine($"Erro: {e.Error}");
-		//	};
-
-		//	_recorder.OnStatusChanged += (_, e) =>
-		//	{
-		//		Console.WriteLine($"Status: {e.Status}");
-		//	};
-
-		//	_recorder.Record(outputFile);
-
-		//	_recording = true;
-
-
-		//	await Task.CompletedTask;
-		//}
-
-
 		public async Task StartAsync(
 									string outputFile,
 									IntPtr? windowHandle = null,

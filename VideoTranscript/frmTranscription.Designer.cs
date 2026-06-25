@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAudioTranscription));
             btnTranscribe = new Button();
             txtResult = new RichTextBox();
@@ -40,7 +41,9 @@
             statusStrip1 = new StatusStrip();
             tslStatus = new ToolStripStatusLabel();
             tslFilePath = new ToolStripStatusLabel();
+            tslTime = new ToolStripStatusLabel();
             pnlResult = new Panel();
+            timTrancribe = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             statusStrip1.SuspendLayout();
             pnlResult.SuspendLayout();
@@ -48,9 +51,9 @@
             // 
             // btnTranscribe
             // 
-            btnTranscribe.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnTranscribe.ForeColor = Color.FromArgb(255, 128, 0);
-            btnTranscribe.Location = new Point(534, 13);
+            btnTranscribe.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnTranscribe.ForeColor = SystemColors.InfoText;
+            btnTranscribe.Location = new Point(476, 13);
             btnTranscribe.Name = "btnTranscribe";
             btnTranscribe.Size = new Size(147, 61);
             btnTranscribe.TabIndex = 0;
@@ -94,10 +97,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label2.Location = new Point(281, 13);
             label2.Name = "label2";
-            label2.Size = new Size(66, 23);
+            label2.Size = new Size(63, 23);
             label2.TabIndex = 6;
             label2.Text = "Idioma";
             // 
@@ -113,9 +116,9 @@
             // 
             // btnCopyText
             // 
-            btnCopyText.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCopyText.ForeColor = Color.Blue;
-            btnCopyText.Location = new Point(703, 13);
+            btnCopyText.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCopyText.ForeColor = SystemColors.InfoText;
+            btnCopyText.Location = new Point(641, 12);
             btnCopyText.Name = "btnCopyText";
             btnCopyText.Size = new Size(147, 61);
             btnCopyText.TabIndex = 5;
@@ -126,10 +129,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label1.Location = new Point(22, 13);
             label1.Name = "label1";
-            label1.Size = new Size(61, 23);
+            label1.Size = new Size(59, 23);
             label1.TabIndex = 1;
             label1.Text = "Model";
             // 
@@ -137,7 +140,7 @@
             // 
             statusStrip1.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { tslStatus, tslFilePath });
+            statusStrip1.Items.AddRange(new ToolStripItem[] { tslStatus, tslFilePath, tslTime });
             statusStrip1.Location = new Point(0, 648);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(1217, 22);
@@ -154,6 +157,11 @@
             tslFilePath.Name = "tslFilePath";
             tslFilePath.Size = new Size(0, 16);
             // 
+            // tslTime
+            // 
+            tslTime.Name = "tslTime";
+            tslTime.Size = new Size(0, 16);
+            // 
             // pnlResult
             // 
             pnlResult.Controls.Add(txtResult);
@@ -161,6 +169,11 @@
             pnlResult.Name = "pnlResult";
             pnlResult.Size = new Size(838, 439);
             pnlResult.TabIndex = 7;
+            // 
+            // timTrancribe
+            // 
+            timTrancribe.Interval = 1000;
+            timTrancribe.Tick += timTrancribe_Tick;
             // 
             // frmAudioTranscription
             // 
@@ -198,5 +211,7 @@
 		private Button btnCopyText;
 		private Label label2;
 		private ComboBox cmbLanguage;
-	}
+        private ToolStripStatusLabel tslTime;
+        private System.Windows.Forms.Timer timTrancribe;
+    }
 }
